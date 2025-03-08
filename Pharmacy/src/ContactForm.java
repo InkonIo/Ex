@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.sql.*;
 
 public class ContactForm extends JFrame {
     private JTextField emailField;

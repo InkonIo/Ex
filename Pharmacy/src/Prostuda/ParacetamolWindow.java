@@ -1,40 +1,42 @@
+package Prostuda;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CitramonWindow extends JFrame {
+public class ParacetamolWindow extends JFrame {
     private String userEmail;
     private ArrayList<String> selectedMedicines;
     private int count = 0;
     private JLabel countLabel;
 
-    public CitramonWindow(String userEmail, ArrayList<String> selectedMedicines) {
+    public ParacetamolWindow(String userEmail, ArrayList<String> selectedMedicines) {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
 
-        setTitle("Цитрамон");
+        setTitle("Парацетамол");
         setBounds(100, 100, 500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
 
-        double price = MedicineDatabase.getPrice("Цитрамон");
+        double price = MedicineDatabase.getPrice("Парацетамол");
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(200, 230, 229));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/citramon.png");
+        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/paracetomo.png");
         Image scaledImage = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
 
         JPanel textPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         textPanel.setBackground(new Color(200, 230, 229));
 
-        JLabel nameLabel = new JLabel("Цитрамон - " + price + " тг.");
+        JLabel nameLabel = new JLabel("Парацетамол - " + price + " тг.");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
-        JLabel descLabel = new JLabel("<html>Снимает головную боль.<br>Обладает обезболивающим действием.</html>");
+        JLabel descLabel = new JLabel("<html>Снижает температуру и боль.<br>Противовоспалительное действие.</html>");
         descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
         textPanel.add(nameLabel);
@@ -95,7 +97,7 @@ public class CitramonWindow extends JFrame {
     private void addToBasket() {
         if (count > 0) {
             for (int i = 0; i < count; i++) {
-                selectedMedicines.add("Цитрамон");
+                selectedMedicines.add("Парацетамол");
             }
         }
     }
