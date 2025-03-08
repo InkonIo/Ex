@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class ContactForm extends JFrame {
     private JTextField emailField;
@@ -27,7 +28,7 @@ public class ContactForm extends JFrame {
         setLocationRelativeTo(null);
 
         // Установка иконки окна
-        ImageIcon icon = new ImageIcon(new File("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/drugs.png").getAbsolutePath());
+        ImageIcon icon = new ImageIcon(new File("D:\\JustFol\\Javik\\exam\\src\\images\\drugs.png").getAbsolutePath());
         setIconImage(icon.getImage());
 
         Container container = getContentPane();
