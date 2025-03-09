@@ -1,43 +1,40 @@
-package Prostuda;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-
-public class CitramonWindow extends JFrame {
+public class Glukoza extends JFrame {
     private String userEmail;
     private ArrayList<String> selectedMedicines;
     private int count = 0;
     private JLabel countLabel;
 
-    public CitramonWindow(String userEmail, ArrayList<String> selectedMedicines) {
+    public Glukoza(String userEmail, ArrayList<String> selectedMedicines) {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
 
-        setTitle("Цитрамон");
+        setTitle("Глюкоза");
         setBounds(100, 100, 500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
 
-        double price = MedicineDatabase.getPrice("Цитрамон");
+        double price = MedicineDatabase.getPrice("Глюкоза");
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(200, 230, 229));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/citramon.png");
+        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/Glukoza.png");
         Image scaledImage = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
 
         JPanel textPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         textPanel.setBackground(new Color(200, 230, 229));
 
-        JLabel nameLabel = new JLabel("Цитрамон - " + price + " тг.");
+        JLabel nameLabel = new JLabel("Глюкоза - " + price + " тг.");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
-        JLabel descLabel = new JLabel("<html>Снимает головную боль.<br>Обладает обезболивающим действием.</html>");
+        JLabel descLabel = new JLabel("<html>Энергетический источник.<br>Поддерживает уровень сахара в крови.</html>");
         descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
         textPanel.add(nameLabel);
@@ -75,10 +72,11 @@ public class CitramonWindow extends JFrame {
 
         JButton backButton = createStyledButton("Назад", new Color(167, 0, 0), Color.WHITE);
         backButton.setPreferredSize(new Dimension(120, 40));
-        backButton.addActionListener(e -> {
-            dispose();
-            new SimpleWindow(userEmail, selectedMedicines);
+        backButton.addActionListener(_ -> {
+            dispose(); // Закрываем текущее окно после открытия нового
+            new DiabetWindow(userEmail, selectedMedicines);
         });
+
 
         buttonPanel.add(addToBasketButton);
         buttonPanel.add(Box.createHorizontalStrut(10));
@@ -98,7 +96,7 @@ public class CitramonWindow extends JFrame {
     private void addToBasket() {
         if (count > 0) {
             for (int i = 0; i < count; i++) {
-                selectedMedicines.add("Цитрамон");
+                selectedMedicines.add("Глюкоза");
             }
         }
     }

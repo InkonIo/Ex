@@ -2,23 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ParacetamolWindow extends JFrame {
+public class Coldrex extends JFrame {
     private String userEmail;
     private ArrayList<String> selectedMedicines;
     private int count = 0;
     private JLabel countLabel;
 
-    public ParacetamolWindow(String userEmail, ArrayList<String> selectedMedicines) {
+    public Coldrex(String userEmail, ArrayList<String> selectedMedicines) {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
 
-        setTitle("Парацетамол");
+        setTitle("Колдрекс");
         setBounds(100, 100, 500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
 
-        double price = MedicineDatabase.getPrice("Парацетамол");
+        double price = MedicineDatabase.getPrice("Колдрекс");
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(200, 230, 229));
@@ -31,7 +31,7 @@ public class ParacetamolWindow extends JFrame {
         JPanel textPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         textPanel.setBackground(new Color(200, 230, 229));
 
-        JLabel nameLabel = new JLabel("Парацетамол - " + price + " тг.");
+        JLabel nameLabel = new JLabel("Колдрекс - " + price + " тг.");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
         JLabel descLabel = new JLabel("<html>Снижает температуру и боль.<br>Противовоспалительное действие.</html>");
@@ -95,7 +95,7 @@ public class ParacetamolWindow extends JFrame {
     private void addToBasket() {
         if (count > 0) {
             for (int i = 0; i < count; i++) {
-                selectedMedicines.add("Парацетамол");
+                selectedMedicines.add("Колдрекс");
             }
         }
     }

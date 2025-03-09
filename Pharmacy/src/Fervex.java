@@ -1,31 +1,29 @@
-package Prostuda;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Coldrex extends JFrame {
+public class Fervex extends JFrame {
     private String userEmail;
     private ArrayList<String> selectedMedicines;
 
-    public Coldrex(String userEmail, ArrayList<String> selectedMedicines) {
+    public Fervex(String userEmail, ArrayList<String> selectedMedicines) {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
 
-        setTitle("Ибупрофен");
+        setTitle("Фервекс");
         setBounds(100, 100, 400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Панель с информацией о парацетамоле
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Колдрекс - 90 тг."));
+        panel.add(new JLabel("Фервекс - 90 тг."));
 
         // Кнопка добавления в корзину
         // Кнопка добавления в корзину
         JButton addToBasketButton = new JButton("Добавить в корзину");
         addToBasketButton.addActionListener(e -> {
-            selectedMedicines.add("Колдрекс"); // Просто добавляем в список без проверки
-            JOptionPane.showMessageDialog(this, "Колдрекс добавлен в корзину");
+            selectedMedicines.add("Фервекс"); // Просто добавляем в список без проверки
+            JOptionPane.showMessageDialog(this, "Фервекс добавлен в корзину");
         });
         panel.add(addToBasketButton);
 

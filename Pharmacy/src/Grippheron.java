@@ -1,13 +1,11 @@
-package Prostuda;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Teraflu extends JFrame {
+public class Grippheron extends JFrame {
     private String userEmail;
     private ArrayList<String> selectedMedicines;
 
-    public Teraflu(String userEmail, ArrayList<String> selectedMedicines) {
+    public Grippheron(String userEmail, ArrayList<String> selectedMedicines) {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
 
@@ -18,14 +16,14 @@ public class Teraflu extends JFrame {
         // Панель с информацией о парацетамоле
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Терафлю - 700 тг."));
+        panel.add(new JLabel("Грипферон - 700 тг."));
 
         // Кнопка добавления в корзину
         // Кнопка добавления в корзину
         JButton addToBasketButton = new JButton("Добавить в корзину");
         addToBasketButton.addActionListener(e -> {
-            selectedMedicines.add("Терафлю"); // Просто добавляем в список без проверки
-            JOptionPane.showMessageDialog(this, "Терафлю добавлен в корзину");
+            selectedMedicines.add("Грипферон"); // Просто добавляем в список без проверки
+            JOptionPane.showMessageDialog(this, "Грипферон добавлен в корзину");
         });
         panel.add(addToBasketButton);
 

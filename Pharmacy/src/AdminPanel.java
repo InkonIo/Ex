@@ -1,5 +1,3 @@
-import Prostuda.MedicineDatabase;
-
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

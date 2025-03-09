@@ -1,42 +1,40 @@
-package Diabet;
-import Prostuda.MedicineDatabase;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Glukoza extends JFrame {
+public class Aquamaris extends JFrame {
     private String userEmail;
     private ArrayList<String> selectedMedicines;
     private int count = 0;
     private JLabel countLabel;
 
-    public Glukoza(String userEmail, ArrayList<String> selectedMedicines) {
+    public Aquamaris(String userEmail, ArrayList<String> selectedMedicines) {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
 
-        setTitle("Глюкоза");
+        setTitle("Аквамарис");
         setBounds(100, 100, 500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
 
-        double price = MedicineDatabase.getPrice("Глюкоза");
+        double price = MedicineDatabase.getPrice("Аквамарис");
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(200, 230, 229));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/Glukoza.png");
+        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/paracetomo.png");
         Image scaledImage = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
 
         JPanel textPanel = new JPanel(new GridLayout(2, 1, 5, 5));
         textPanel.setBackground(new Color(200, 230, 229));
 
-        JLabel nameLabel = new JLabel("Глюкоза - " + price + " тг.");
+        JLabel nameLabel = new JLabel("Аквамарис - " + price + " тг.");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
-        JLabel descLabel = new JLabel("<html>Энергетический источник.<br>Поддерживает уровень сахара в крови.</html>");
+        JLabel descLabel = new JLabel("<html>Снижает температуру и боль.<br>Противовоспалительное действие.</html>");
         descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
         textPanel.add(nameLabel);
@@ -74,11 +72,10 @@ public class Glukoza extends JFrame {
 
         JButton backButton = createStyledButton("Назад", new Color(167, 0, 0), Color.WHITE);
         backButton.setPreferredSize(new Dimension(120, 40));
-        backButton.addActionListener(_ -> {
-            dispose(); // Закрываем текущее окно после открытия нового
-            new DiabetWindow(userEmail, selectedMedicines);
+        backButton.addActionListener(e -> {
+            dispose();
+            new SimpleWindow(userEmail, selectedMedicines);
         });
-
 
         buttonPanel.add(addToBasketButton);
         buttonPanel.add(Box.createHorizontalStrut(10));
@@ -98,7 +95,7 @@ public class Glukoza extends JFrame {
     private void addToBasket() {
         if (count > 0) {
             for (int i = 0; i < count; i++) {
-                selectedMedicines.add("Глюкоза");
+                selectedMedicines.add("Аквамарис");
             }
         }
     }
