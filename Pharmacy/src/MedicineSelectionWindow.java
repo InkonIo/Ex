@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class MedicineSelectionWindow extends JFrame {
     private String userEmail;
+    private int userId;
     private ArrayList<String> selectedMedicines;
     private JPanel categoryPanel;
 
-    public MedicineSelectionWindow(String userEmail, ArrayList<String> selectedMedicines) {
-        this.userEmail = userEmail;
+    public MedicineSelectionWindow(int userId, ArrayList<String> selectedMedicines) {
         this.selectedMedicines = selectedMedicines;
+        this.userId = userId;
 
         // Настройка окна
         setTitle("Выбор лекарств");

@@ -40,9 +40,15 @@ public class Basket extends JFrame {
 
         JButton backButton = createStyledButton("Назад", new Color(0, 123, 167), Color.WHITE);
         backButton.addActionListener(e -> {
-            dispose();
-            new MedicineSelectionWindow(userEmail, selectedMedicines);
+            int userId = DatabaseHelper.getUserIdByEmail(userEmail);
+            if (userId != -1) {
+                dispose();
+                new MedicineSelectionWindow(userId, selectedMedicines);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ошибка: ID пользователя не найден.", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            }
         });
+
 
         JButton clearButton = createStyledButton("Очистить корзину", new Color(0, 123, 167), Color.WHITE);
         clearButton.addActionListener(e -> {

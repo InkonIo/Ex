@@ -173,10 +173,10 @@ public class AdminPanel extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(240, 248, 255));
 
-        userModel = new DefaultTableModel(new String[]{"Email", "Пароль"}, 0);
+        userModel = new DefaultTableModel(new String[]{"ID", "Email", "Пароль"}, 0);
         userTable = new JTable(userModel);
 
-        loadUsers(); // Загружаем пользователей из БД
+        loadUsers();
 
         JButton deleteButton = new JButton("Удалить");
         JButton addUserButton = new JButton("Добавить пользователя");
@@ -204,13 +204,16 @@ public class AdminPanel extends JFrame {
         }
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
-             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)");) {
-
+             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, email);
             pstmt.setString(2, password);
             pstmt.executeUpdate();
 
-            userModel.addRow(new Object[]{email, password});
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                userModel.addRow(new Object[]{id, email, password});
+            }
             JOptionPane.showMessageDialog(this, "Пользователь добавлен!", "Успех", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -219,14 +222,15 @@ public class AdminPanel extends JFrame {
     }
 
     private void loadUsers() {
-        userModel.setRowCount(0); // Очищаем таблицу перед загрузкой
+        userModel.setRowCount(0);
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT email, password FROM users")) {
+             ResultSet rs = stmt.executeQuery("SELECT id, email, password FROM users")) {
 
             while (rs.next()) {
                 userModel.addRow(new Object[]{
+                        rs.getInt("id"),
                         rs.getString("email"),
                         rs.getString("password")
                 });
@@ -244,26 +248,24 @@ public class AdminPanel extends JFrame {
             return;
         }
 
-        String email = (String) userModel.getValueAt(row, 0);
+        int id = (int) userModel.getValueAt(row, 0);
 
         int confirm = JOptionPane.showConfirmDialog(this, "Удалить пользователя?", "Подтверждение", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) return;
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:users.db");
-             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM users WHERE email = ?")) {
+             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM users WHERE id = ?")) {
 
-            pstmt.setString(1, email);
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
 
             userModel.removeRow(row);
             JOptionPane.showMessageDialog(this, "Пользователь удален!", "Успех", JOptionPane.INFORMATION_MESSAGE);
-
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ошибка удаления пользователя!", "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 
     private void resetUserPassword(boolean useDefault) {
         int row = userTable.getSelectedRow();

@@ -132,10 +132,10 @@ public class ContactForm extends JFrame {
             // Проверка через базу данных
             DatabaseHelper.connect();
             if (DatabaseHelper.checkUser(email, password)) {
-                String userEmail = DatabaseHelper.getUserEmailFromDatabase(email);
+                int userId = DatabaseHelper.getUserIdByEmail(email);
                 JOptionPane.showMessageDialog(null, "Вход успешен!", "Успех", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
-                new MedicineSelectionWindow(userEmail, selectedMedicines);
+                new MedicineSelectionWindow(userId, selectedMedicines);
             } else {
                 JOptionPane.showMessageDialog(null, "Неверный email или пароль", "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
