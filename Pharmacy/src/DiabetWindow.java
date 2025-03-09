@@ -1,4 +1,4 @@
-import Diabet.Glukoza;
+import Diabet.*;
 import Prostuda.MedicineDatabase;
 
 import javax.swing.*;
@@ -93,7 +93,7 @@ public class DiabetWindow extends JFrame {
         container.add(medicineScrollPane, BorderLayout.CENTER);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
-        setVisible(true);
+        setVisible(true);  // Делаем окно видимым в конце конструктора
     }
 
     private void addMedicineButton(String medicineName, String description, String imagePath, Class<?> medicineWindowClass) {

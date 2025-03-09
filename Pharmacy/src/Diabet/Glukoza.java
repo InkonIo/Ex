@@ -1,7 +1,5 @@
 package Diabet;
-
 import Prostuda.MedicineDatabase;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -76,10 +74,11 @@ public class Glukoza extends JFrame {
 
         JButton backButton = createStyledButton("Назад", new Color(167, 0, 0), Color.WHITE);
         backButton.setPreferredSize(new Dimension(120, 40));
-        backButton.addActionListener(e -> {
-            dispose();
+        backButton.addActionListener(_ -> {
+            dispose(); // Закрываем текущее окно после открытия нового
             new DiabetWindow(userEmail, selectedMedicines);
         });
+
 
         buttonPanel.add(addToBasketButton);
         buttonPanel.add(Box.createHorizontalStrut(10));

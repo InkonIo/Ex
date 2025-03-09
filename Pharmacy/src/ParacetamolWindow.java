@@ -1,4 +1,4 @@
-package Prostuda;
+import Prostuda.MedicineDatabase;
 
 import javax.swing.*;
 import java.awt.*;
