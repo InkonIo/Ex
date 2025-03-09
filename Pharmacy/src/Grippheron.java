@@ -19,7 +19,6 @@ public class Grippheron extends JFrame {
         panel.add(new JLabel("Грипферон - 700 тг."));
 
         // Кнопка добавления в корзину
-        // Кнопка добавления в корзину
         JButton addToBasketButton = new JButton("Добавить в корзину");
         addToBasketButton.addActionListener(e -> {
             selectedMedicines.add("Грипферон"); // Просто добавляем в список без проверки

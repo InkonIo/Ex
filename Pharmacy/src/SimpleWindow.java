@@ -19,7 +19,7 @@ public class SimpleWindow extends JFrame {
         this.medicineCards = new ArrayList<>();
 
         setTitle("Простуда");
-        setBounds(100, 100, 650, 450);
+        setBounds(100, 100, 950, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -62,9 +62,9 @@ public class SimpleWindow extends JFrame {
         medicinePanel.setBackground(new Color(138, 209, 206));
         medicinePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        addMedicineButton("Цитрамон", "Обезболивающее и жаропонижающее.", "/images/citramon.png", CitramonWindow.class); // 1
-        addMedicineButton("Парацетамол", "Снижает температуру и боль.", "/images/paracetomo.png", ParacetamolWindow.class); // 2
-        addMedicineButton("Ибупрофен", "Противовоспалительное средство.", "/images/ibuprofen.png", IbuprofenWindow.class); // 3
+        addMedicineButton("Цитрамон", "Обезболивающее и жаропонижающее.", "D:\\JustFol\\Javis\\exam\\src\\images\\citramon.png", CitramonWindow.class); // 1
+        addMedicineButton("Парацетамол", "Снижает температуру и боль.", "D:\\JustFol\\Javis\\exam\\src\\images\\paracetomo.png", ParacetamolWindow.class); // 2
+        addMedicineButton("Ибупрофен", "Противовоспалительное средство.", "D:\\JustFol\\Javis\\exam\\src\\images\\ibuprofen.png", IbuprofenWindow.class); // 3
         addMedicineButton("Аквамарис", "Противовоспалительное средство.", "/images/ibuprofen.png", Aquamaris.class); // 4
         addMedicineButton("Грипфорен", "Противовоспалительное средство.", "/images/ibuprofen.png", Grippheron.class); // 5
         addMedicineButton("Колдрекс", "Противовоспалительное средство.", "/images/ibuprofen.png", Coldrex.class); // 6

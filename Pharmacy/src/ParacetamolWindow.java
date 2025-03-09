@@ -24,7 +24,7 @@ public class ParacetamolWindow extends JFrame {
         panel.setBackground(new Color(200, 230, 229));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        ImageIcon icon = new ImageIcon("/Users/inkonio/Desktop/Utilities/Prokec/exam/src/images/paracetomo.png");
+        ImageIcon icon = new ImageIcon("D:\\JustFol\\Javis\\exam\\src\\images\\paracetomo.png");
         Image scaledImage = icon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
 

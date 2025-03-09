@@ -27,7 +27,7 @@ public class ContactForm extends JFrame {
         setLocationRelativeTo(null);
 
         // Установка иконки окна
-        ImageIcon icon = new ImageIcon(new File("D:\\JustFol\\Javik\\exam\\src\\images\\drugs.png").getAbsolutePath());
+        ImageIcon icon = new ImageIcon(new File("D:\\JustFol\\Javis\\exam\\src\\images\\drugs.png").getAbsolutePath());
         setIconImage(icon.getImage());
 
         Container container = getContentPane();
