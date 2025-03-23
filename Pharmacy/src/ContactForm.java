@@ -133,6 +133,8 @@ public class ContactForm extends JFrame {
             DatabaseHelper.connect();
             if (DatabaseHelper.checkUser(email, password)) {
                 int userId = DatabaseHelper.getUserIdByEmail(email);
+                SessionManager.setUser(userId, email); // Запоминаем пользователя
+
                 JOptionPane.showMessageDialog(null, "Вход успешен!", "Успех", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 new MedicineSelectionWindow(userId, selectedMedicines);

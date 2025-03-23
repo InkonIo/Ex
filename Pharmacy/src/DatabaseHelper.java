@@ -60,22 +60,49 @@ public class DatabaseHelper {
         return false;
     }
 
+
     public static int getUserIdByEmail(String email) {
         int userId = -1;
-        String query = "SELECT id FROM users WHERE email = ?";
+        String query = "SELECT id FROM users WHERE email = ? LIMIT 1";
 
-        try (PreparedStatement stmt = connect().prepareStatement(query)) { // Используем connect()
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, email);
+            System.out.println("Executing query: " + pstmt.toString()); // Проверка запроса
 
+            ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 userId = rs.getInt("id");
+                System.out.println("User ID найден: " + userId); // Вывод результата
+            } else {
+                System.out.println("Пользователь не найден!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return userId;
     }
+
+    public static String getEmailByUserId(int userId) {
+        String email = null;
+        String query = "SELECT email FROM users WHERE id = ? LIMIT 1";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                email = rs.getString("email");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return email;
+    }
+
+
 
     public static boolean addMedicine(String name, double price) {
         String sql = "INSERT INTO medicines (name, price) VALUES (?, ?)";
@@ -88,6 +115,38 @@ public class DatabaseHelper {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void printAllUsers() {
+        int userId = getCurrentUserId();
+        if (userId == -1) {
+            System.out.println("Нет активного пользователя.");
+            return;
+        }
+
+        String query = "SELECT id, email FROM users WHERE id = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("id") + ", Email: " + rs.getString("email"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static int currentUserId = -1;
+
+    public static int getCurrentUserId() {
+        return currentUserId;
+    }
+
+    private static void setCurrentUserId(int userId) {
+        currentUserId = userId;
     }
 
     public static int getMedicineIdByName(String name) {
@@ -159,14 +218,18 @@ public class DatabaseHelper {
     }
 
     public static boolean checkUser(String email, String password) {
-        String sql = "SELECT id FROM users WHERE email = ? AND password = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next(); // Если нашли пользователя, то true
+        String query = "SELECT id FROM users WHERE email = ? AND password = ?";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                setCurrentUserId(rs.getInt("id")); // Сохраняем текущего пользователя
+                return true;
+            }
         } catch (SQLException e) {
-            System.out.println("Ошибка при проверке пользователя");
             e.printStackTrace();
         }
         return false;

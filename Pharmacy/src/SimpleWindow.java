@@ -7,6 +7,7 @@ import javax.swing.event.DocumentListener;
 
 public class SimpleWindow extends JFrame {
     private String userEmail;
+    private int userId;
     private ArrayList<String> selectedMedicines;
     private JPanel medicinePanel;
     private JScrollPane medicineScrollPane;
@@ -90,8 +91,9 @@ public class SimpleWindow extends JFrame {
 
         JButton basketButton = createStyledButton("Корзина", new Color(0, 123, 167), Color.WHITE);
         basketButton.addActionListener(e -> {
+            int userId = DatabaseHelper.getUserIdByEmail(userEmail); // userId должен быть уже известен
             dispose();
-            new Basket(userEmail, selectedMedicines);
+            new Basket(userId, selectedMedicines);
         });
 
         buttonPanel.add(backButton);

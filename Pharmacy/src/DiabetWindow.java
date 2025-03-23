@@ -7,6 +7,7 @@ import javax.swing.event.DocumentListener;
 
 public class DiabetWindow extends JFrame {
     private String userEmail;
+    private int userId;
     private ArrayList<String> selectedMedicines;
     private JPanel medicinePanel;
     private JScrollPane medicineScrollPane;
@@ -17,6 +18,7 @@ public class DiabetWindow extends JFrame {
         this.userEmail = userEmail;
         this.selectedMedicines = selectedMedicines;
         this.medicineCards = new ArrayList<>();
+        this.userId = DatabaseHelper.getUserIdByEmail(userEmail);
 
         setTitle("Диабет");
         setBounds(100, 100, 650, 450);
@@ -73,19 +75,14 @@ public class DiabetWindow extends JFrame {
 
         JButton backButton = createStyledButton("Назад", new Color(0, 123, 167), Color.WHITE);
         backButton.addActionListener(e -> {
-            int userId = DatabaseHelper.getUserIdByEmail(userEmail);
-            if (userId != -1) {
-                dispose();
-                new MedicineSelectionWindow(userId, selectedMedicines);
-            } else {
-                JOptionPane.showMessageDialog(null, "Ошибка: ID пользователя не найден.", "Ошибка", JOptionPane.ERROR_MESSAGE);
-            }
+            dispose();
+            new MedicineSelectionWindow(userId, selectedMedicines);
         });
 
         JButton basketButton = createStyledButton("Корзина", new Color(0, 123, 167), Color.WHITE);
         basketButton.addActionListener(e -> {
             dispose();
-            new Basket(userEmail, selectedMedicines);
+            new Basket(userId, selectedMedicines);
         });
 
         buttonPanel.add(backButton);
@@ -95,7 +92,7 @@ public class DiabetWindow extends JFrame {
         container.add(medicineScrollPane, BorderLayout.CENTER);
         container.add(buttonPanel, BorderLayout.SOUTH);
 
-        setVisible(true);  // Делаем окно видимым в конце конструктора
+        setVisible(true);
     }
 
     private void addMedicineButton(String medicineName, String description, String imagePath, Class<?> medicineWindowClass) {
@@ -104,7 +101,7 @@ public class DiabetWindow extends JFrame {
         medicineCard.setBorder(BorderFactory.createLineBorder(new Color(0, 90, 140), 2));
         medicineCard.setPreferredSize(new Dimension(300, 100));
 
-        ImageIcon originalIcon = new ImageIcon(imagePath);
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
         Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
 
@@ -144,15 +141,17 @@ public class DiabetWindow extends JFrame {
 
     private void filterMedicines() {
         String searchText = searchField.getText().trim().toLowerCase();
-
         medicinePanel.removeAll();
 
         for (JPanel card : medicineCards) {
-            JLabel nameLabel = (JLabel) ((JPanel) card.getComponent(1)).getComponent(0); // Получаем метку с названием лекарства
-            String medicineName = nameLabel.getText().toLowerCase();
-
-            if (medicineName.contains(searchText)) {
-                medicinePanel.add(card);
+            Component[] components = card.getComponents();
+            if (components.length > 1 && components[1] instanceof JPanel textPanel) {
+                Component[] textComponents = textPanel.getComponents();
+                if (textComponents.length > 0 && textComponents[0] instanceof JLabel nameLabel) {
+                    if (nameLabel.getText().toLowerCase().contains(searchText)) {
+                        medicinePanel.add(card);
+                    }
+                }
             }
         }
 
@@ -160,10 +159,9 @@ public class DiabetWindow extends JFrame {
         medicinePanel.repaint();
     }
 
-
     private void openMedicineWindow(Class<?> medicineWindowClass) {
         try {
-            medicineWindowClass.getDeclaredConstructor(String.class, ArrayList.class).newInstance(userEmail, selectedMedicines);
+            medicineWindowClass.getDeclaredConstructor(String.class).newInstance(userEmail);
             dispose();
         } catch (Exception ex) {
             ex.printStackTrace();

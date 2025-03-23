@@ -5,13 +5,19 @@ import java.util.HashMap;
 
 public class Basket extends JFrame {
     private ArrayList<String> selectedMedicines;
+    private int userId;
     private String userEmail;
     private JPanel basketPanel;
     private JLabel totalLabel;
 
-    public Basket(String userEmail, ArrayList<String> selectedMedicines) {
-        this.userEmail = userEmail;
+    public Basket(int userId, ArrayList<String> selectedMedicines) {
+        this.userId = userId;
+        this.userEmail = SessionManager.getUserEmail(); // Получаем email пользователя
         this.selectedMedicines = selectedMedicines;
+
+        System.out.println("Basket: UserID = " + this.userId + ", Email = " + this.userEmail);
+        System.out.println("Полученные лекарства: " + this.selectedMedicines);
+
 
         setTitle("Корзина");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,15 +46,9 @@ public class Basket extends JFrame {
 
         JButton backButton = createStyledButton("Назад", new Color(0, 123, 167), Color.WHITE);
         backButton.addActionListener(e -> {
-            int userId = DatabaseHelper.getUserIdByEmail(userEmail);
-            if (userId != -1) {
-                dispose();
-                new MedicineSelectionWindow(userId, selectedMedicines);
-            } else {
-                JOptionPane.showMessageDialog(null, "Ошибка: ID пользователя не найден.", "Ошибка", JOptionPane.ERROR_MESSAGE);
-            }
+            dispose();
+            new MedicineSelectionWindow(userId, selectedMedicines);
         });
-
 
         JButton clearButton = createStyledButton("Очистить корзину", new Color(0, 123, 167), Color.WHITE);
         clearButton.addActionListener(e -> {
@@ -115,7 +115,7 @@ public class Basket extends JFrame {
             totalPrice += price * quantity;
         }
 
-        JLabel userLabel = new JLabel("Ваш email: " + userEmail);
+        JLabel userLabel = new JLabel("Ваш email: " + (userEmail != null ? userEmail : "Неизвестный пользователь"));
         userLabel.setForeground(new Color(0, 90, 140));
         userLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 

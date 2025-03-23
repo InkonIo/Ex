@@ -12,6 +12,10 @@ public class MedicineSelectionWindow extends JFrame {
         this.selectedMedicines = selectedMedicines;
         this.userId = userId;
 
+        System.out.println("Создано окно MedicineSelectionWindow. UserID: " + this.userId);
+
+        DatabaseHelper.printAllUsers();
+
         // Настройка окна
         setTitle("Выбор лекарств");
         setBounds(100, 100, 600, 400);
@@ -51,9 +55,11 @@ public class MedicineSelectionWindow extends JFrame {
         });
 
         JButton basketButton = createStyledButton("Корзина", new Color(0, 123, 167), Color.WHITE);
+
         basketButton.addActionListener(e -> {
+            System.out.println("Перед открытием Basket. UserID: " + userId);
             dispose();
-            new Basket(userEmail, selectedMedicines);
+            new Basket(userId, selectedMedicines);
         });
 
         buttonPanel.add(backButton);
