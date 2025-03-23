@@ -10,13 +10,20 @@ public class Basket extends JFrame {
     private JPanel basketPanel;
     private JLabel totalLabel;
 
-    public Basket(int userId, ArrayList<String> selectedMedicines) {
-        this.userId = userId;
-        this.userEmail = SessionManager.getUserEmail(); // Получаем email пользователя
-        this.selectedMedicines = selectedMedicines;
+    public Basket(ArrayList<String> selectedMedicines) {
+        this.userId = SessionManager.getUserId(); // Получаем ID из SessionManager
+        this.userEmail = SessionManager.getUserEmail(); // Получаем email из SessionManager
+
+        if (this.userId == -1 || this.userEmail == null) {
+            System.err.println("Ошибка: Пользователь не найден в сессии!");
+            JOptionPane.showMessageDialog(null, "Ошибка: Вы не авторизованы!", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        this.selectedMedicines = (selectedMedicines != null) ? selectedMedicines : new ArrayList<>();
 
         System.out.println("Basket: UserID = " + this.userId + ", Email = " + this.userEmail);
-        // 1
+
         setTitle("Корзина");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
@@ -43,8 +50,9 @@ public class Basket extends JFrame {
         JButton backButton = createStyledButton("Назад", new Color(0, 123, 167), Color.WHITE);
         backButton.addActionListener(e -> {
             dispose();
-            new MedicineSelectionWindow(userId, selectedMedicines);
+            new MedicineSelectionWindow(SessionManager.getUserId(), selectedMedicines);
         });
+
 
         JButton clearButton = createStyledButton("Очистить корзину", new Color(0, 123, 167), Color.WHITE);
         clearButton.addActionListener(e -> {

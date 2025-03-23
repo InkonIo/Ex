@@ -67,12 +67,15 @@ public class DatabaseHelper {
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            System.out.println("Email перед запросом: " + email); // Проверяем email перед запросом
             pstmt.setString(1, email);
+            System.out.println("SQL-запрос: " + pstmt.toString()); // Проверяем, что будет выполняться
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 userId = rs.getInt("id");
-                System.out.println("User ID найден: " + userId); // Вывод результата
+                System.out.println("User ID найден: " + userId);
             } else {
                 System.out.println("Пользователь не найден!");
             }
@@ -81,6 +84,7 @@ public class DatabaseHelper {
         }
         return userId;
     }
+
 
     public static String getEmailByUserId(int userId) {
         String email = null;

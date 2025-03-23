@@ -82,8 +82,9 @@ public class DiabetWindow extends JFrame {
         JButton basketButton = createStyledButton("Корзина", new Color(0, 123, 167), Color.WHITE);
         basketButton.addActionListener(e -> {
             dispose();
-            new Basket(userId, selectedMedicines);
+            new Basket(selectedMedicines);
         });
+
 
         buttonPanel.add(backButton);
         buttonPanel.add(basketButton);

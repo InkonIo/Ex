@@ -91,10 +91,10 @@ public class SimpleWindow extends JFrame {
 
         JButton basketButton = createStyledButton("Корзина", new Color(0, 123, 167), Color.WHITE);
         basketButton.addActionListener(e -> {
-            int userId = DatabaseHelper.getUserIdByEmail(userEmail); // userId должен быть уже известен
             dispose();
-            new Basket(userId, selectedMedicines);
+            new Basket(selectedMedicines);
         });
+
 
         buttonPanel.add(backButton);
         buttonPanel.add(basketButton);

@@ -58,10 +58,10 @@ public class MedicineSelectionWindow extends JFrame {
         JButton basketButton = createStyledButton("Корзина", new Color(0, 123, 167), Color.WHITE);
 
         basketButton.addActionListener(e -> {
-            System.out.println("Перед открытием Basket. UserID: " + userId);
             dispose();
-            new Basket(userId, selectedMedicines);
+            new Basket(selectedMedicines);
         });
+
 
         buttonPanel.add(backButton);
         buttonPanel.add(basketButton);
