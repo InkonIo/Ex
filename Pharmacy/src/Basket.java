@@ -16,7 +16,7 @@ public class Basket extends JFrame {
         this.selectedMedicines = selectedMedicines;
 
         System.out.println("Basket: UserID = " + this.userId + ", Email = " + this.userEmail);
-
+        // 1
         setTitle("Корзина");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400);
