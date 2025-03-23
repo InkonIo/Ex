@@ -16,8 +16,6 @@ public class Basket extends JFrame {
         this.selectedMedicines = selectedMedicines;
 
         System.out.println("Basket: UserID = " + this.userId + ", Email = " + this.userEmail);
-        System.out.println("Полученные лекарства: " + this.selectedMedicines);
-
 
         setTitle("Корзина");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,10 +23,9 @@ public class Basket extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
 
-        // Основная панель с бирюзовым фоном
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
-        container.setBackground(new Color(138, 209, 206)); // Основной фон
+        container.setBackground(new Color(138, 209, 206));
 
         basketPanel = new JPanel();
         basketPanel.setLayout(new BoxLayout(basketPanel, BoxLayout.Y_AXIS));
@@ -40,7 +37,6 @@ public class Basket extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Кнопки управления
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(138, 209, 206));
 
@@ -77,10 +73,8 @@ public class Basket extends JFrame {
         setVisible(true);
     }
 
-    // Метод для обновления корзины
     private void updateBasket() {
         basketPanel.removeAll();
-
         double totalPrice = 0.0;
         HashMap<String, Integer> medicineCount = new HashMap<>();
 
@@ -93,7 +87,7 @@ public class Basket extends JFrame {
             double price = MedicineDatabase.getPrice(medicine);
 
             JPanel itemPanel = new JPanel(new BorderLayout());
-            itemPanel.setBackground(new Color(200, 230, 229)); // Светлее основного фона
+            itemPanel.setBackground(new Color(200, 230, 229));
             itemPanel.setBorder(BorderFactory.createLineBorder(new Color(0, 123, 167), 1));
             itemPanel.setPreferredSize(new Dimension(550, 40));
 
@@ -130,7 +124,6 @@ public class Basket extends JFrame {
         basketPanel.repaint();
     }
 
-    // Метод для создания стилизованной кнопки
     private JButton createStyledButton(String text, Color bgColor, Color fgColor) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 14));

@@ -3,11 +3,13 @@ public class SessionManager {
     private static String userEmail = null;
 
     public static void setUser(int id, String email) {
+
         userId = id;
         userEmail = email;
     }
 
     public static int getUserId() {
+
         return userId;
     }
 

@@ -23,19 +23,19 @@ public class DatabaseHelper {
         String createUsersTable = "CREATE TABLE IF NOT EXISTS users ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "email TEXT UNIQUE NOT NULL, "
-                + "password TEXT NOT NULL);"; // Закрыли скобку перед `;`
+                + "password TEXT NOT NULL);";
 
         String createMedicinesTable = "CREATE TABLE IF NOT EXISTS medicines ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "name TEXT NOT NULL, "
-                + "price REAL NOT NULL);"; // Закрыли скобку перед `;`
+                + "price REAL NOT NULL);";
 
         String createUserMedicinesTable = "CREATE TABLE IF NOT EXISTS user_medicines ("
                 + "user_id INTEGER, "
                 + "medicine_id INTEGER, "
                 + "FOREIGN KEY (user_id) REFERENCES users(id), "
                 + "FOREIGN KEY (medicine_id) REFERENCES medicines(id), "
-                + "PRIMARY KEY (user_id, medicine_id));"; // Закрыли скобку перед `;`
+                + "PRIMARY KEY (user_id, medicine_id));";
 
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createUsersTable);
@@ -68,7 +68,6 @@ public class DatabaseHelper {
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, email);
-            System.out.println("Executing query: " + pstmt.toString()); // Проверка запроса
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -184,8 +183,6 @@ public class DatabaseHelper {
             if (rs.next()) {
                 System.out.println("User found: " + email);
                 return true;
-            } else {
-                System.out.println("User not found or incorrect password: " + email);
             }
             return rs.next(); // Если есть результат, email существует
         } catch (SQLException e) {

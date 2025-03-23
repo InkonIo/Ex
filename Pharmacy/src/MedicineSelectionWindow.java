@@ -14,6 +14,7 @@ public class MedicineSelectionWindow extends JFrame {
 
         System.out.println("Создано окно MedicineSelectionWindow. UserID: " + this.userId);
 
+
         DatabaseHelper.printAllUsers();
 
         // Настройка окна
