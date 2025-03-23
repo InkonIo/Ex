@@ -9,7 +9,6 @@ public class SessionManager {
     }
 
     public static int getUserId() {
-
         return userId;
     }
 
